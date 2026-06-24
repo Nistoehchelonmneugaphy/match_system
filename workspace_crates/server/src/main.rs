@@ -1,4 +1,6 @@
 use clap::Parser;
+use server::port_picker::pick_unused_port;
+use tracing::{Level, info};
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
 struct UserId(pub String);
@@ -35,8 +37,14 @@ struct Args {
 }
 
 pub fn main() -> anyhow::Result<()> {
+    let subscriber = tracing_subscriber::fmt()
+        .with_max_level(Level::INFO)
+        .finish();
+    tracing::subscriber::set_global_default(subscriber).ok();
     let clap_args = Args::parse();
     let config: MatchStartupConfig = serde_json::from_str(&clap_args.match_startup_data)?;
-    println!("Print {config:#?}");
+    info!("Print {config:#?}");
+    let an_unused_port = pick_unused_port().expect("to get an unused port");
+    info!("Found an unused port {an_unused_port}");
     Ok(())
 }
