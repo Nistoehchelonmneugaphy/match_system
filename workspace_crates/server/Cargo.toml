@@ -4,11 +4,12 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-clap = {version = "4.6.1", features = ["derive", "debug"]}
 game_server_structs = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
 anyhow = { workspace = true }
 rand = { workspace = true }
 tracing = { workspace = true }
-tracing-subscriber = "0.3.23"
+tracing-subscriber = { workspace = true }
+ehttp = "0.7.1"
+clap = {version = "4.6.1", features = ["derive", "debug"]}
