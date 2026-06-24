@@ -4,6 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+futures-util = { version = "0.3.32", features = ["sink"]}
+http = "1.4.2"
+url = "2.5.8"
+tokio = { version = "1.52.3", features = [ "full" ] }
+tokio-tungstenite = { version = "0.29.0", features = [ "rustls-tls-webpki-roots" ] }
 game_server_structs = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
