@@ -1,5 +1,5 @@
 use clap::Parser;
-use server::{FromGameServer, ToGameServer, UserId, port_picker::pick_unused_port, websocket};
+use match_server::{FromGameServer, ToGameServer, UserId, port_picker::pick_unused_port, websocket};
 use tracing::{Level, info};
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
