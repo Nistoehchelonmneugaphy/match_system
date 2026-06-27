@@ -2,6 +2,27 @@ pub mod port_picker;
 pub mod websocket;
 
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ToGameServer {
+    content: ToGameServerContent,
+}
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub enum ToGameServerContent {
+    Ping,
+    StartedAtPort { port: Port },
+    MatchFinished { statistics: MatchStatistics },
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct FromGameServer {
+    content: FromGameServerContent,
+}
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub enum FromGameServerContent {
+    Ping,
+    
+}
+
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
 pub struct MatchStatistics {
     player_points: Vec<(UserId, usize)>,

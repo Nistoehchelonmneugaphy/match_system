@@ -7,33 +7,12 @@ use tokio_tungstenite::{
 };
 use tracing::{trace, warn};
 
-use crate::{MatchStatistics, Port};
+use crate::{FromGameServer, ToGameServer};
+
 
 pub enum BreakOrContinue {
     Break,
     Continue,
-}
-
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ToGameServer {
-    content: ToGameServerContent,
-}
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub enum ToGameServerContent {
-    Ping,
-    StartedAtPort { port: Port },
-    MatchFinished { statistics: MatchStatistics },
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct FromGameServer {
-    content: FromGameServerContent,
-}
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub enum FromGameServerContent {
-    Ping,
-    
 }
 
 pub fn spawn_ws_task(
