@@ -1,37 +1,22 @@
 use clap::Parser;
-use server::port_picker::pick_unused_port;
+use server::{
+    UserId,
+    port_picker::pick_unused_port,
+    websocket::{self, FromGameServer, ToGameServer},
+};
 use tracing::{Level, info};
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
 pub struct MatchStartupConfig {
-    callback_token: CallbackToken,
-    match_port_callback_url: String,
-    match_finished_callback_url: String,
+    secret_token: String,
+    game_server_communication_ws_url: String,
     players_tokens: Vec<(UserId, MatchPlayerToken)>,
 }
-
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
-pub struct MatchFinishedMessage {
-    callback_token: CallbackToken,
-    statistics: MatchStatistics,
-}
-
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
-pub struct MatchStatistics {
-    player_points: Vec<(UserId, usize)>,
-    match_lasted_seconds: SecondsSinceEpoch,
-    buildings_built_count: Vec<(UserId, usize)>,
-}
-
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
-struct UserId(pub String);
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
 struct MatchPlayerToken(pub String);
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
 struct CallbackToken(pub String);
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
-pub struct SecondsSinceEpoch(pub usize);
 
 #[derive(clap::Parser, Debug)]
 struct Args {
@@ -39,7 +24,6 @@ struct Args {
     match_startup_data: String,
 }
 
-struct Port(pub u16);
 pub fn main() -> anyhow::Result<()> {
     set_log_level_to_info();
     let clap_args = Args::parse();
@@ -48,9 +32,16 @@ pub fn main() -> anyhow::Result<()> {
     let an_unused_port = pick_unused_port().expect("to get an unused port");
     info!("Found an unused port {an_unused_port}");
     // TODO: Establish websocket connection to the game server
+    let (to_server_tx, to_server_rx) = tokio::sync::mpsc::unbounded_channel::<ToGameServer>();
+    let (from_server_tx, from_server_rx) = tokio::sync::mpsc::unbounded_channel::<FromGameServer>();
+    websocket::spawn_ws_task(
+        config.game_server_communication_ws_url.clone(),
+        config.secret_token.clone(),
+        to_server_rx,
+        from_server_tx,
+    );
     Ok(())
 }
-
 
 fn set_log_level_to_info() {
     let subscriber = tracing_subscriber::fmt()
