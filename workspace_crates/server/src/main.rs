@@ -1,4 +1,5 @@
 use clap::Parser;
+use game_server_structs::websocket_communication::MatchPlayer;
 use match_server::{FromGameServer, ToGameServer, UserId, port_picker::pick_unused_port, websocket};
 use tracing::{Level, info};
 
@@ -6,7 +7,7 @@ use tracing::{Level, info};
 pub struct MatchStartupConfig {
     secret_token: String,
     game_server_communication_ws_url: String,
-    players_tokens: Vec<(UserId, MatchPlayerToken)>,
+    players: Vec<MatchPlayer>,
 }
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]

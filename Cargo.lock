@@ -500,7 +500,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -625,7 +625,7 @@ dependencies = [
 [[package]]
 name = "game_server_structs"
 version = "0.1.0"
-source = "git+ssh://git@github.com/Aeroel/game_server.git#ee549856897f72accc0a278c403efe25cebc2b8d"
+source = "git+ssh://git@github.com/Aeroel/game_server.git#56472a623ef527d2a548de3e5eff06799e0543d2"
 dependencies = [
  "auth_system_structs",
  "base64",
@@ -633,6 +633,7 @@ dependencies = [
  "http",
  "serde",
  "strum",
+ "tokio",
 ]
 
 [[package]]
