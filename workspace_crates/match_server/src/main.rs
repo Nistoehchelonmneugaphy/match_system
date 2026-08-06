@@ -1,6 +1,6 @@
 use clap::Parser;
 use game_server_structs::websocket_communication::MatchPlayer;
-use match_server::{FromGameServer, ToGameServer, UserId, port_picker::pick_unused_port, websocket};
+use match_server::{FromGameServer, ToGameServer, port_picker::pick_unused_port, websocket};
 use tracing::{Level, info};
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
@@ -20,6 +20,7 @@ struct Args {
     #[arg(long)]
     match_startup_data: String,
 }
+
 
 pub fn main() -> anyhow::Result<()> {
     set_log_level_to_info();

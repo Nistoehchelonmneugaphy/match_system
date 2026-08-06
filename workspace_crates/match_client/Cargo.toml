@@ -1,0 +1,17 @@
+[package]
+name = "match_client"
+version = "0.1.0"
+edition = "2024"
+
+
+[dependencies]
+lightyear = { workspace = true, features = [
+    "client", "interpolation", "prediction", "replication", "std", "avian3d", "deterministic","netcode", "lightyear_aeronet", "websocket",
+]}
+avian3d = { version = "0.7.0", 
+  features=["3d",
+  "f32",
+  "parry-f32",
+  "parallel",
+  "serialize"] }
+  bevy = { workspace = true }
