@@ -170,6 +170,7 @@ dependencies = [
  "rustls",
  "rustls-native-certs",
  "tokio",
+ "tokio-rustls",
  "tokio-tungstenite 0.26.2",
  "tracing",
  "wasm-bindgen",
@@ -184,7 +185,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "34c2be31f4a24a05b93538dd4cbaaa7f0c71c29481968756eae5536177eb4fb4"
 dependencies = [
  "aeronet_io",
- "base64",
+ "base64 0.22.1",
  "bevy_app",
  "bevy_ecs",
  "bevy_platform",
@@ -683,6 +684,12 @@ name = "base64"
 version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
+
+[[package]]
+name = "base64"
+version = "0.23.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ac07cdecf99051d9a5238b80f35af32cdeba5b336e55d957b318b50137e18da5"
 
 [[package]]
 name = "base64ct"
@@ -1235,7 +1242,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "84e21ad83b7dc8d456491ea3d50057685d8c4cca8bc52a1b4a7161c86c369842"
 dependencies = [
  "async-lock",
- "base64",
+ "base64 0.22.1",
  "bevy_animation",
  "bevy_app",
  "bevy_asset",
@@ -3578,7 +3585,7 @@ version = "0.1.0"
 source = "git+ssh://git@github.com/Aeroel/game_server.git#50f8f59d2d2035f19119a89a71be80208fa8de85"
 dependencies = [
  "auth_system_structs",
- "base64",
+ "base64 0.22.1",
  "bevy_ecs",
  "http",
  "serde",
@@ -4577,6 +4584,7 @@ dependencies = [
  "lightyear_sync",
  "lightyear_tools",
  "lightyear_transport",
+ "lightyear_udp",
  "lightyear_utils",
  "lightyear_web",
  "lightyear_websocket",
@@ -4746,6 +4754,7 @@ dependencies = [
  "lightyear_connection",
  "lightyear_core",
  "lightyear_interpolation",
+ "lightyear_link",
  "lightyear_messages",
  "lightyear_prediction",
  "lightyear_replication",
@@ -4872,6 +4881,7 @@ dependencies = [
  "bytes",
  "lightyear_connection",
  "lightyear_core",
+ "lightyear_link",
  "lightyear_serde",
  "lightyear_transport",
  "lightyear_utils",
@@ -4920,6 +4930,7 @@ dependencies = [
  "lightyear_transport",
  "lightyear_utils",
  "no_std_io2",
+ "rand 0.10.2",
  "thiserror 2.0.18",
  "tracing",
  "web-time",
@@ -4945,6 +4956,7 @@ dependencies = [
  "lightyear_core",
  "lightyear_frame_interpolation",
  "lightyear_interpolation",
+ "lightyear_messages",
  "lightyear_replication",
  "lightyear_sync",
  "lightyear_utils",
@@ -5130,6 +5142,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "lightyear_udp"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f5de693f3e82a67aeed2bdec3f29dad9394aaa5b8a63c6268131824e4d312a71"
+dependencies = [
+ "aeronet_io",
+ "bevy_app",
+ "bevy_ecs",
+ "bevy_platform",
+ "bytes",
+ "lightyear_core",
+ "lightyear_link",
+ "thiserror 2.0.18",
+ "tracing",
+]
+
+[[package]]
 name = "lightyear_utils"
 version = "0.28.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5168,6 +5197,7 @@ dependencies = [
  "aeronet_websocket",
  "bevy_app",
  "bevy_ecs",
+ "bevy_reflect",
  "lightyear_aeronet",
  "lightyear_link",
  "thiserror 2.0.18",
@@ -5184,6 +5214,7 @@ dependencies = [
  "aeronet_webtransport",
  "bevy_app",
  "bevy_ecs",
+ "bevy_reflect",
  "lightyear_aeronet",
  "lightyear_link",
  "thiserror 2.0.18",
@@ -5264,11 +5295,14 @@ name = "match_server"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "base64 0.23.1",
  "clap",
  "ehttp",
+ "flate2",
  "futures-util",
  "game_server_structs",
  "http",
+ "lightyear",
  "rand 0.10.2",
  "serde",
  "serde_json",
@@ -6205,7 +6239,7 @@ version = "3.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1d30c53c26bc5b31a98cd02d20f25a7c8567146caf63ed593a9d87b2775291be"
 dependencies = [
- "base64",
+ "base64 0.22.1",
  "serde_core",
 ]
 
@@ -8143,7 +8177,7 @@ version = "3.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dea7109cdcd5864d4eeb1b58a1648dc9bf520360d7af16ec26d0a9354bafcfc0"
 dependencies = [
- "base64",
+ "base64 0.22.1",
  "flate2",
  "log",
  "percent-encoding",
@@ -8160,7 +8194,7 @@ version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e994ba84b0bd1b1b0cf92878b7ef898a5c1760108fe7b6010327e274917a808c"
 dependencies = [
- "base64",
+ "base64 0.22.1",
  "http",
  "httparse",
  "log",

@@ -4,7 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+lightyear = { workspace = true, features = ["server", "netcode"] }
 futures-util = { workspace = true }
+flate2 = { workspace = true }
+base64 = { workspace = true }
 http = { workspace = true}
 url = { workspace = true }
 tokio = { workspace = true }
