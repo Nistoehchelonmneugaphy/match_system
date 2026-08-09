@@ -36,7 +36,7 @@ pub fn connect_to_server(mut commands: Commands, address_string: String, token: 
         Link::default(),
         ReplicationReceiver,
         nc_client,
-        WebSocketClientIo::from_url(ClientConfig::builder().with_no_encryption(), format!("ws://{address_string}"))
+        WebSocketClientIo::from_url(ClientConfig, format!("ws://{address_string}"))
     )).id();
     commands.trigger(Connect {entity: client_entity});
 }

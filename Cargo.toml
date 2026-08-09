@@ -12,7 +12,7 @@ debug = false
 base64 = "0.23.1"
 http = "1.4.2"
 url = "2.5.8"
-tokio = { version = "1.53.1", features = [ "full" ] }
+tokio = { version = "1.53.1", default-features = false }
 tokio-tungstenite = { version = "0.30.0", features = [ "rustls-tls-webpki-roots" ] }
 futures-util = { version = "0.3.33", features = ["sink"]}
 clap = {version = "4.6.4", features = ["derive", "debug"]}
